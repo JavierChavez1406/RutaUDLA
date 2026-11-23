@@ -6,6 +6,7 @@ public class Novedad {
     private String tipo;
     private String descripcion;
     private String estado;
+    private String gravedad;
     private long fechaHora;
 
     public Novedad(int id, Ruta ruta, String tipo,
@@ -16,6 +17,18 @@ public class Novedad {
         this.descripcion = descripcion;
         this.fechaHora = fechaHora;
         this.estado = "Pendiente";
+        this.gravedad = calcularGravedad(tipo);
+    }
+
+    private String calcularGravedad(String tipoNovedad) {
+        String t = tipoNovedad.trim().toUpperCase();
+        if (t.equals("INTERRUPCION") || t.equals("ACCIDENTE") || t.equals("SUSPENSION")) {
+            return "CRITICA";
+        }
+        if (t.equals("RETRASO") || t.equals("DESVIO") || t.equals("TRAFICO")) {
+            return "MODERADA";
+        }
+        return "LEVE";
     }
 
     public int getId() {
@@ -36,6 +49,10 @@ public class Novedad {
 
     public String getEstado() {
         return estado;
+    }
+
+    public String getGravedad() {
+        return gravedad;
     }
 
     public long getFechaHora() {

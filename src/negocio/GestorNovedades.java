@@ -51,6 +51,18 @@ public class GestorNovedades {
         return false;
     }
 
+    public int contarRetrasosActivos(Ruta ruta) {
+        int contador = 0;
+        for (Novedad n : novedades) {
+            if (n.getRuta() == ruta &&
+                    n.getEstado().equals("Pendiente") &&
+                    n.getTipo().trim().equalsIgnoreCase("RETRASO")) {
+                contador++;
+            }
+        }
+        return contador;
+    }
+
     public ObjetoOlvidado registrarObjeto(
             Ruta ruta, String tipo, String descripcion,
             int minutosAtras) {
@@ -81,6 +93,18 @@ public class GestorNovedades {
             }
         }
 
+        return false;
+    }
+
+    public boolean hayPosibleCoincidencia(Ruta ruta, String tipoNuevo) {
+        String buscado = tipoNuevo.equals("OLVIDADO") ? "ENCONTRADO" : "OLVIDADO";
+        for (ObjetoOlvidado o : objetos) {
+            if (o.getRuta() == ruta &&
+                    o.getEstado().equals("Pendiente") &&
+                    o.getTipo().equals(buscado)) {
+                return true;
+            }
+        }
         return false;
     }
 }

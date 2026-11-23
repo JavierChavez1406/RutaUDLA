@@ -296,8 +296,7 @@ public class MainConsola {
             return;
         }
 
-        System.out.printf(
-                "Intervalo promedio: %.1f minutos%n", intervalo);
+        System.out.printf("Intervalo promedio: %.1f minutos%n", intervalo);
 
         long salida = estimaciones.proximaSalida(s);
 
@@ -361,7 +360,10 @@ public class MainConsola {
                 System.out.println("ERROR: datos invalidos");
             } else {
                 System.out.println(
-                        "Guardada novedad #" + n.getId() + " | Pendiente");
+                        "Guardada novedad #" + n.getId() + " | Gravedad: " + n.getGravedad() + " | Pendiente");
+                if (novedades.contarRetrasosActivos(r) >= 2) {
+                    System.out.println("ALERTA: Esta ruta presenta retrasos reiterados.");
+                }
             }
         }
 
@@ -403,6 +405,9 @@ public class MainConsola {
             } else {
                 System.out.println(
                         "Guardado objeto #" + o.getId() + " | Pendiente");
+                if (novedades.hayPosibleCoincidencia(r, tipo)) {
+                    System.out.println("AVISO: Existe un reporte opuesto activo en esta misma ruta.");
+                }
             }
         }
 
